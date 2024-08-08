@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,37 +16,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kevinreyes.webapp.blibioteca.model.Empleado;
 
-import com.kevinreyes.webapp.blibioteca.model.Cliente;
-import com.kevinreyes.webapp.blibioteca.service.ClienteService;
+import com.kevinreyes.webapp.blibioteca.service.EmpleadoService;
 
 @Controller
 @RestController
 @RequestMapping(value = "")
-public class ClienteController {
+public class EmpleadoController {
 
     @Autowired
-    ClienteService clienteService;
+    EmpleadoService empleadoService;
 
-    @GetMapping("/clientes")
-    public List<Cliente> listarClientes(){
-        return clienteService.listarClientes();
+    @GetMapping("/empleados")
+    public List<Empleado> listarEmpleados(){
+        return empleadoService.listarEmpleados();
     }
 
-    @GetMapping("/cliente")
-    public ResponseEntity<Cliente> buscarClientes(@RequestParam Long dpi){
+    @GetMapping("/empleado")
+    public ResponseEntity<Empleado> buscarEmpleados(@RequestParam Long id){
         try {
-            return ResponseEntity.ok(clienteService.buscarClientes(dpi));
+            return ResponseEntity.ok(empleadoService.buscarEmpleados(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PostMapping("/cliente")
-    public ResponseEntity<Map<String, Boolean>> guardarClientes(@RequestBody Cliente cliente){
+    @PostMapping("/empleado")
+    public ResponseEntity<Map<String, Boolean>> agregarEmpleado(@RequestBody Empleado empleado){
         Map<String, Boolean> response = new HashMap<>();
         try {
-            clienteService.guardarClientes(cliente);
+            empleadoService.guardarEmpleados(empleado);
             response.put("message", Boolean.TRUE);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -57,15 +56,17 @@ public class ClienteController {
         
     }
 
-    @PutMapping("/cliente")
-    public ResponseEntity<Map<String, String>> editarCliente(@RequestParam Long dpi, @RequestBody Cliente clienteNuevo){
+    @PutMapping("/empleado")
+    public ResponseEntity<Map<String, String>> editarEmpleado(@RequestParam Long id, @RequestBody Empleado empleadoNew){
         Map <String, String> response = new HashMap<>();
         try {
-            Cliente clienteAnt = clienteService.buscarClientes(dpi);
-            clienteAnt.setNombreCliente(clienteNuevo.getNombreCliente());
-            clienteAnt.setApellidoCliente(clienteNuevo.getApellidoCliente());
-            clienteAnt.setTelefonoCliente(clienteNuevo.getTelefonoCliente());
-            clienteService.guardarClientes(clienteAnt);
+            Empleado empleadoAnt = empleadoService.buscarEmpleados(id);
+            empleadoAnt.setNombre(empleadoNew.getNombre());
+            empleadoAnt.setApellido(empleadoNew.getApellido()); 
+            empleadoAnt.setTelefono(empleadoNew.getTelefono());
+            empleadoAnt.setDireccion(empleadoNew.getDireccion());
+            empleadoAnt.setDpi(empleadoNew.getDpi());
+            empleadoService.guardarEmpleados(empleadoAnt);
             response.put("message", "Cliente editada con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -75,12 +76,12 @@ public class ClienteController {
     }
 
 
-    @DeleteMapping("/cliente")
-    public ResponseEntity<Map<String, String>> eliminarClientes(@RequestParam Long dpi){
+    @DeleteMapping("/empleado")
+    public ResponseEntity<Map<String, String>> eliminarEmpleados(@RequestParam Long id){
         Map <String, String> response = new HashMap<>();
         try {
-            Cliente cliente = clienteService.buscarClientes(dpi);
-            clienteService.eliminarClientes(cliente);
+            Empleado empleado = empleadoService.buscarEmpleados(id);
+            empleadoService.eliminarEmpleados(empleado);
             response.put("message", "Cliente eliminda con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -88,6 +89,4 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
-
 }

@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kevinreyes.webapp.blibioteca.model.Cliente;
 import com.kevinreyes.webapp.blibioteca.model.Empleado;
-import com.kevinreyes.webapp.blibioteca.repository.ClienteRepository;
 import com.kevinreyes.webapp.blibioteca.repository.EmpleadoRepository;
 
 @Service
@@ -22,17 +20,17 @@ public class EmpleadoService implements IEmpleadoService{
     }
 
     @Override 
-    public Cliente buscarClientes(Long dpi){
-        return clienteRepository.findById(dpi).orElse(null);
+    public Empleado buscarEmpleados(Long id){
+        return empleadoRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Cliente guardarClientes(Cliente cliente){
-        return clienteRepository.save(cliente);
+    public Empleado guardarEmpleados(Empleado empleado){
+        return empleadoRepository.save(empleado);
     }
 
     @Override 
-    public void eliminarClientes(Cliente cliente){
-        clienteRepository.delete(cliente);
+    public void eliminarEmpleados(Empleado empleado){
+        empleadoRepository.delete(empleado);
     }
 }

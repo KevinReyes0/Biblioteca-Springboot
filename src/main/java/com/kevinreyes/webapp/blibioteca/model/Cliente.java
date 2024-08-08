@@ -3,7 +3,7 @@ package com.kevinreyes.webapp.blibioteca.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+/*import jakarta.validation.constraints.NotNull;*/
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,10 +15,10 @@ public class Cliente {
 
     @Id
     private Long dpi;
-    @NotNull(message = "NombreCliente no puede ser nulo")
+    /*@NotNull(message = "NombreCliente no puede ser nulo")*/
     private String nombreCliente;
-    @NotNull(message = "ApellidoCliente no puede ser nulo")
+    /*@NotNull(message = "ApellidoCliente no puede ser nulo")*/
     private String apellidoCliente;
-    @NotNull(message = "TelefonoCliente no puede ser nulo")
+    /*@NotNull(message = "TelefonoCliente no puede ser nulo")*/
     private String telefonoCliente;
 }

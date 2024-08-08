@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kevinreyes.webapp.blibioteca.model.Cliente;
 import com.kevinreyes.webapp.blibioteca.model.Libro;
-import com.kevinreyes.webapp.blibioteca.service.ClienteService;
 import com.kevinreyes.webapp.blibioteca.service.LibroService;
 
 @Controller
@@ -48,7 +46,7 @@ public class LibroController {
     }
 
     @PostMapping("/libro")
-    public ResponseEntity<Map<String, Boolean>> guardarLibros(@RequestParam Libro libro){
+    public ResponseEntity<Map<String, Boolean>> guardarLibros(@RequestBody Libro libro){
         Map<String, Boolean> response = new HashMap<>();
         try {
             libroService.guardarLibros(libro);
