@@ -46,9 +46,13 @@ public class EmpleadoController {
     public ResponseEntity<Map<String, Boolean>> agregarEmpleado(@RequestBody Empleado empleado){
         Map<String, Boolean> response = new HashMap<>();
         try {
-            empleadoService.guardarEmpleados(empleado);
-            response.put("message", Boolean.TRUE);
-            return ResponseEntity.ok(response);
+            if(empleadoService.guardarEmpleados(empleado)){
+                response.put("message", Boolean.TRUE);
+                return ResponseEntity.ok(response);
+            }else {
+                response.put("message", Boolean.FALSE);
+                return ResponseEntity.badRequest().(response);
+            }
         } catch (Exception e) {
             response.put("err", Boolean.FALSE);
             return ResponseEntity.badRequest().body(response);
