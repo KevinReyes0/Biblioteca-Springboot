@@ -70,9 +70,14 @@ public class EmpleadoController {
             empleadoAnt.setTelefono(empleadoNew.getTelefono());
             empleadoAnt.setDireccion(empleadoNew.getDireccion());
             empleadoAnt.setDpi(empleadoNew.getDpi());
-            empleadoService.guardarEmpleados(empleadoAnt);
-            response.put("message", "Cliente editada con exito");
-            return ResponseEntity.ok(response);
+            if(empleadoService.guardarEmpleados(empleadoAnt)){
+                response.put("message", "Cliente editada con exito");
+                return ResponseEntity.ok(response);
+            }else {
+                response.put("message", "El Cliente no se pudo editar");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
         } catch (Exception e) {
             response.put("message", "El Cliente no se pudo editar");
             return ResponseEntity.badRequest().body(response);

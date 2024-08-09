@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kevinreyes.webapp.blibioteca.model.Prestamo;
 import com.kevinreyes.webapp.blibioteca.repository.PrestamoRepository;
+import com.kevinreyes.webapp.blibioteca.utils.MethodType;
 
 @Service
 public class PrestamoService implements IPrestamoService{
@@ -25,8 +26,15 @@ public class PrestamoService implements IPrestamoService{
     }
 
     @Override
-    public Prestamo guardarPrestamo(Prestamo prestamo) {
-        return prestamoRepository.save(prestamo);
+    public Prestamo guardarPrestamo(Prestamo prestamo, MethodType methodType) {
+        if(methodType.equals(MethodType.POST)){
+            return prestamoRepository.save(prestamo);
+        }else if (methodType.equals(MethodType.PUT)){
+            return prestamoRepository.save(prestamo);
+        }else {
+            return prestamoRepository.save(null);
+        }
+        
     }
 
     @Override
