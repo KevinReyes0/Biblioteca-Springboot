@@ -29,6 +29,8 @@ public class EmpleadoService implements IEmpleadoService{
        if(!verificarDpiDuplicado(empleado)){
         empleadoRepository.save(empleado);
         return true;
+        }else {
+            return false;
         }
     }
 

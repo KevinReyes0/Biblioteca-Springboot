@@ -51,7 +51,7 @@ public class EmpleadoController {
                 return ResponseEntity.ok(response);
             }else {
                 response.put("message", Boolean.FALSE);
-                return ResponseEntity.badRequest().(response);
+                return ResponseEntity.badRequest().body(response);
             }
         } catch (Exception e) {
             response.put("err", Boolean.FALSE);
